@@ -1,0 +1,2005 @@
+html {
+    scroll-behavior: smooth;
+}
+
+/* Reset and Base Styles */
+:root {
+    /* Elegant Red, White, Black Color Scheme */
+    --primary-red: #c1121f;           /* Deep Elegant Red */
+    --accent-red: #d90429;            /* Accent Red */
+    --primary-black: #18181b;         /* Charcoal/Black */
+    --dark-gray: #23272f;
+    --medium-gray: #64748b;
+    --light-gray: #f8fafc;
+    --primary-white: #ffffff;
+    --primary-white1: #fffefe;
+    --bg-color: #ffffff; /* Fallback background color */
+    --maroon: #800000; /* Added Maroon color */
+    --text-color: #18181b;
+    --text-color-light: #f8fafc;
+    --card-bg: transparent;
+    --header-bg: #000000; /* Dark header for light theme */
+    --shadow-color: rgba(193,18,31,0.10); /* Red shadow */
+    --hover-bg: rgba(193,18,31,0.08); /* Red hover */
+    --border-color: rgba(193,18,31,0.15);
+    --input-bg-light: #f1f5f9;
+    --input-bg-dark: #23272f;
+    --placeholder-color-light: #64748b;
+    --placeholder-color-dark: #94a3b8;
+    --shadow: 0 2px 20px rgba(193,18,31,0.10);
+    --transition: all 0.3s cubic-bezier(.4,0,.2,1);
+    --card-bg-gradient: linear-gradient(135deg, #fff 60%, #f8f8f8 100%);
+    --section-bg-gradient: linear-gradient(120deg, #fff 80%, #f8f8f8 100%);
+    --focus-outline: 0 0 0 3px rgba(193,18,31,0.18);
+    --pure-white: #ffffff; /* Added explicit white */
+    /* Glassmorphism Variables */
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-bg-hover: rgba(255, 255, 255, 0.1);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.18);
+    --glass-border-hover: 1px solid rgba(255, 255, 255, 0.25);
+    --glass-blur: blur(12px) saturate(180%);
+    --glass-radius: 12px;
+}
+
+/* Dark Theme Colors */
+[data-theme="dark"] {
+    --primary-red: #ff4b5c;
+    --accent-red: #ff6f61;
+    --primary-black: #f8fafc;
+    --dark-gray: #cbd5e1;
+    --medium-gray: #94a3b8;
+    --light-gray: #18181b;
+    --primary-white: #18181b;
+    --bg-color: #000000; /* Pure black */
+    --text-color: #f8fafc;
+    --text-color1: #d7c3c3;
+    --card-bg: transparent; /* Changed for glassmorphism */
+    --header-bg: #111111; /* Slightly lighter black for dark theme header */
+    --shadow-color: rgba(255,75,92,0.1); /* Subtle red shadow */
+    --hover-bg: rgba(255,75,92,0.12);
+    --border-color: rgba(255,75,92,0.15);
+    --input-bg-light: var(--input-bg-dark);
+    --placeholder-color-light: var(--placeholder-color-dark);
+    --card-bg-gradient: var(--bg-color); /* Use pure black */
+    --section-bg-gradient: var(--bg-color); /* Use pure black */
+    --focus-outline: 0 0 0 3px rgba(255,75,92,0.18);
+    /* Optional: Adjust glass variables for dark theme if needed, e.g., darker alpha */
+    /* --glass-bg: rgba(40, 40, 40, 0.5); */
+    /* --glass-border: 1px solid rgba(255, 255, 255, 0.1); */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    /* Removed gradient background */
+    /* background: linear-gradient(to bottom, var(--maroon), #000000); */
+    /* background-image: url('background-ribbon.jpg'); */ /* <-- Commented out image */
+    background-color: #000000; /* Restore fallback color */
+    background-size: cover; /* Restore */
+    background-position: center center; /* Restore */
+    background-repeat: no-repeat; /* Restore */
+    background-attachment: fixed; /* Restore */
+    color: var(--text-color); /* Keep existing text color variable */
+    line-height: 1.6;
+    min-height: 100vh; /* Ensure gradient covers full viewport height */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Keep color transition */
+}
+
+/* Theme Toggle Button -- REMOVED */
+/*
+.theme-language-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    cursor: pointer;
+    padding: 0.5rem;
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+[data-theme="dark"] .theme-toggle .fa-moon {
+    color: var(--primary-red);
+}
+*/
+
+/* Header Styles */
+header {
+    /* Apply glassmorphism using variables */
+    background: var(--glass-bg); /* Use glass background */
+    backdrop-filter: var(--glass-blur); /* Use glass blur */
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: var(--glass-border); /* Optional: Add a subtle bottom border */
+    color: var(--text-color); /* Ensure text color is set */
+    box-shadow: 0 2px 10px var(--shadow-color); /* Restore or add a subtle shadow if desired */
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+    /* Adjust transition */
+    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.logo a {
+    color: var(--primary-red); /* Red logo text */
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.india-tag {
+    background-color: var(--primary-red); /* Red tag background */
+    color: #ffffff; /* Ensure tag text is white in both themes */
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Navigation Styles */
+.main-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.main-menu a {
+    color: var(--primary-black); /* Should be white in dark, black in light */
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.main-menu a::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -4px;
+    left: 0;
+    background-color: var(--primary-red); /* Red underline */
+    transition: width 0.3s ease;
+}
+
+.main-menu a:hover::after {
+    width: 100%;
+}
+
+.main-menu a:hover {
+    color: var(--primary-red); /* Red hover color */
+}
+
+.dropdown-menu {
+    /* Apply glassmorphism */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: 0 4px 20px var(--shadow-color);
+    color: var(--text-color); /* Ensure text color contrasts */
+    display: none;
+    position: absolute;
+    min-width: 220px;
+    padding: 0.8rem 0; /* Keep vertical padding, link padding handles horizontal */
+    transform-origin: top;
+    animation: dropdownFade 0.3s ease;
+    transition: background 0.3s, border-color 0.3s; /* Add transition */
+}
+
+@keyframes dropdownFade {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu a {
+    padding: 0.8rem 1.2rem;
+    display: block;
+    transition: all 0.3s ease;
+    color: var(--text-color); /* Ensure link color is set */
+    border-radius: 0; /* Remove radius from links if any */
+    background: none; /* Ensure links inside don't inherit background */
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--hover-bg); /* Use variable */
+    padding-left: 1.5rem;
+    color: var(--primary-red);
+}
+
+.dropdown-menu i {
+    margin-right: 0.8rem;
+    color: var(--primary-red); /* Red icons in dropdown */
+}
+
+/* Hero Section */
+.hero-section {
+    position: relative;
+    height: 100vh;
+    min-height: 600px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-white);
+    text-align: center;
+}
+
+/* Particles JS Container Styles */
+#particles-js {
+    position: fixed; /* Changed to fixed */
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1; /* Changed to -1 to be behind everything */
+}
+
+.video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.video-background video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6); /* Slightly darker overlay */
+}
+
+.hero-slider {
+    position: relative;
+    z-index: 2; /* Ensure slider content is above particles and overlay */
+    width: 100%;
+    max-width: 1200px; /* Align with header */
+    padding: 0 1rem;
+}
+
+.slide-content {
+    position: relative;
+    z-index: 2;
+    color: var(--primary-white1); /* White text */
+    text-align: center;
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100vh;
+    min-height: 600px;
+}
+
+.slide-content h2 {
+    font-size: 3.5rem;
+    margin-bottom: 1.5rem;
+    /* Optional: Keep gradient or use solid white/light gray */
+    /* background: linear-gradient(45deg, #fff, #f5f5f5); */
+    /* -webkit-background-clip: text; */
+    /* -webkit-text-fill-color: transparent; */
+    color: var(--primary-white);
+}
+
+.slide-features {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin: 2rem 0;
+    flex-wrap: wrap;
+}
+
+.slide-features span {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.8rem 1.5rem;
+    background-color: rgba(255, 255, 255, 0.15); /* Slightly more opaque background */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Subtle border */
+    border-radius: 8px;
+    backdrop-filter: blur(5px);
+    transition: transform 0.3s ease;
+}
+
+.slide-features span:hover {
+    transform: translateY(-5px);
+}
+
+.btn {
+    display: inline-block;
+    /* Updated background gradient */
+    background: linear-gradient(135deg, var(--primary-red) 0%, var(--accent-red) 100%);
+    color: #fff !important;
+    padding: 1rem 2.2rem; /* Slightly increased padding */
+    border-radius: 8px; /* Less rounded corners */
+    text-decoration: none;
+    font-weight: 600; /* Slightly less bold */
+    letter-spacing: 0.03em;
+    /* Updated transition for smoother effect */
+    transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease, color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    border: none;
+    /* Slightly adjusted box shadow */
+    box-shadow: 0 5px 15px rgba(193,18,31,0.2);
+    cursor: pointer; /* Add pointer cursor */
+}
+
+/* Specific fix for dark theme button text */
+[data-theme="dark"] .btn {
+    color: #fff;
+    /* Ensure shadow is visible in dark theme */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    /* Slightly more subtle shimmer */
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
+    transition: left 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.btn:hover {
+    /* Brighter gradient on hover */
+    background: linear-gradient(135deg, var(--accent-red) 0%, var(--primary-red) 100%);
+    color: #fff;
+    /* Enhanced shadow and slight lift */
+    box-shadow: 0 8px 25px rgba(193,18,31,0.3);
+    transform: translateY(-3px) scale(1.03); /* Lift and slightly scale up */
+}
+
+/* Ensure hover shadow works in dark mode */
+[data-theme="dark"] .btn:hover {
+    box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+}
+
+.btn:hover::before {
+    left: 100%;
+}
+
+.btn i {
+    /* Adjusted transition for icon */
+    transition: transform 0.3s ease;
+    margin-left: 8px; /* Add space before icon */
+}
+
+.btn:hover i {
+    transform: translateX(4px); /* Keep subtle movement */
+}
+
+/* Business Section */
+.business-section {
+    padding: 6rem 1rem;
+    /* background: var(--section-bg-gradient); */
+    background: transparent; /* Make background transparent */
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-title h2 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: 700;
+    color: var(--primary-red); /* Keep primary red for light mode */
+}
+
+.section-title p {
+    font-size: 1.1rem;
+    color: var(--medium-gray); /* Medium gray subtitle */
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.business-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.business-card {
+    /* Apply glassmorphism */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: 0 4px 20px var(--shadow-color);
+    color: var(--text-color); /* Ensure text color contrasts */
+    padding: 2rem;
+    text-align: center;
+    transition: var(--transition), background 0.3s, border-color 0.3s; /* Added transitions */
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Add z-index for pseudo-element */
+}
+
+.business-card:hover {
+    transform: translateY(-8px);
+    background: var(--glass-bg-hover); /* Change bg on hover */
+    border: var(--glass-border-hover); /* Change border on hover */
+    box-shadow: 0 10px 30px var(--shadow-color); /* Enhance shadow on hover */
+}
+
+.business-card i {
+    font-size: 3rem;
+    color: var(--primary-red); /* Red icons */
+    margin-bottom: 1.5rem;
+    position: relative; /* Ensure icon is above ::before */
+    z-index: 1;
+}
+
+.business-card h3, .business-card p {
+    position: relative; /* Ensure text is above ::before */
+    z-index: 1;
+    margin-bottom: 0.5rem;
+}
+
+.business-card h3 { color: var(--primary-red); } /* Keep primary red for light mode */
+.business-card p { color: var(--medium-gray); } /* Keep medium gray for light mode */
+
+/* Network Section */
+.network-section {
+    padding: 6rem 1rem;
+    /* background: var(--section-bg-gradient); */
+    background: transparent; /* Make background transparent */
+}
+
+.network-container {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr; /* Adjust ratio if needed */
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    align-items: start; /* Align items to the top */
+}
+
+.network-info {
+    background-color: var(--primary-white);
+    /* Removed potential redundant background */
+}
+
+.region-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.region-item {
+    /* Apply glassmorphism */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    box-shadow: 0 4px 20px var(--shadow-color);
+    color: var(--text-color);
+    /* Existing styles below */
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: var(--glass-radius); /* Use glass radius */
+    transition: var(--transition), background 0.3s, border-color 0.3s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.region-item:hover {
+    background: var(--glass-bg-hover); /* Change bg on hover */
+    border: var(--glass-border-hover); /* Change border on hover */
+    box-shadow: 0 10px 30px var(--shadow-color); /* Enhance shadow on hover */
+    transform: translateX(-5px); /* Keep subtle hover effect */
+}
+
+.region-item.active {
+    background: var(--glass-bg-hover); /* Active state similar to hover */
+    border: var(--glass-border-hover);
+    box-shadow: 0 6px 25px var(--shadow-color); /* Slightly stronger shadow */
+}
+
+.region-item i {
+    font-size: 1.8rem;
+    color: var(--primary-red);
+    margin-top: 0.2rem;
+}
+
+.region-item:hover i, .region-item.active i {
+    color: var(--accent-red);
+}
+
+.region-details h3 {
+    margin-bottom: 0.3rem;
+    font-size: 1.2rem;
+    color: var(--primary-black);
+}
+
+.region-details p {
+    margin-bottom: 0.8rem;
+    color: var(--medium-gray);
+}
+
+.facility-list {
+    list-style: none;
+    padding-left: 0; /* Removed default padding */
+    margin-top: 1rem;
+}
+
+.facility-list li {
+    margin-bottom: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--dark-gray);
+    transition: color 0.3s ease;
+}
+
+.facility-list li:hover {
+    color: var(--primary-red);
+}
+
+.facility-list li i {
+    font-size: 1rem; /* Smaller icon */
+    color: var(--medium-gray); /* Neutral icon color */
+    transition: color 0.3s ease;
+    margin-top: 0; /* Reset margin */
+}
+
+.facility-list li:hover i {
+     color: var(--primary-red);
+}
+
+.map-container {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    position: relative; /* Needed for overlay */
+    height: 500px; /* Default height, adjust as needed */
+}
+
+.india-map-wrapper { /* Keeping class name for now, might need update */
+    position: relative;
+    height: 100%;
+}
+
+#world-map { /* Updated ID from HTML */
+    height: 100%;
+    width: 100%;
+    background-color: #e0e0e0; /* Placeholder background */
+}
+
+.map-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--glass-bg); /* Apply glass to legend */
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    padding: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 10;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.map-overlay:hover {
+    background: var(--glass-bg-hover);
+    border: var(--glass-border-hover);
+}
+
+.legend {
+    /* Style as needed */
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.legend-item:last-child {
+    margin-bottom: 0;
+}
+
+.legend-item:hover {
+    color: var(--primary-black);
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 0.6rem;
+    display: inline-block;
+    position: relative;
+    border: 2px solid rgba(0,0,0,0.1);
+}
+
+.dot::after {
+    content: '';
+    position: absolute;
+    inset: -4px; /* Expand area */
+    border-radius: 50%;
+    background-color: rgba(193,18,31,0.2); /* Light Red halo */
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease;
+}
+
+.legend-item:hover .dot::after {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Update dot colors if needed based on map implementation */
+.dot.warehouse { background-color: var(--primary-red); }
+.dot.distribution { background-color: var(--accent-red); }
+.dot.office { background-color: var(--medium-gray); }
+
+/* Services Highlight Section */
+.services-highlight {
+    padding: 6rem 1rem;
+    /* background: var(--section-bg-gradient); */
+    background: transparent; /* Make background transparent */
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.service-item {
+    /* Apply glassmorphism */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: 0 4px 20px var(--shadow-color);
+    color: var(--text-color);
+    padding: 2rem;
+    text-align: center;
+    transition: var(--transition), background 0.3s, border-color 0.3s;
+}
+
+.service-item:hover {
+    transform: translateY(-8px);
+    background: var(--glass-bg-hover); /* Change bg on hover */
+    border: var(--glass-border-hover); /* Change border on hover */
+    box-shadow: 0 10px 30px var(--shadow-color); /* Enhance shadow on hover */
+}
+
+.service-item i {
+    font-size: 2.5rem;
+    color: var(--primary-red);
+    margin-bottom: 1rem;
+    /* Adding a subtle text shadow to make icon pop slightly */
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.service-item h3 {
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+    /* Ensure heading color contrasts well - Use theme variable if needed */
+    color: var(--text-color); /* Use text color variable for theme compatibility */
+}
+
+.service-item p {
+    color: var(--medium-gray);
+    font-size: 0.95rem;
+}
+
+/* Explicit white for dark mode service item headings */
+[data-theme="dark"] .service-item h3 {
+    color: var(--pure-white);
+}
+
+/* Stats Section */
+.stats-section {
+    padding: 4rem 1rem;
+    /* background-color: #000000; */ /* Slightly different dark shade for contrast */
+    background: transparent; /* Make background transparent */
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.stats-section::before { /* Optional: Add a subtle pattern or gradient */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(255, 75, 92, 0.03) 0%, transparent 70%);
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.stats-grid {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.stat-item {
+    background: none; /* Remove individual item background */
+    padding: 2rem 1.5rem; /* Increased padding slightly */
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative; /* Needed for icon positioning */
+    overflow: hidden; /* Keep elements contained */
+}
+
+.stat-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-red);
+    box-shadow: 0 5px 15px rgba(255, 75, 92, 0.1);
+}
+
+.stat-chart-container {
+    position: relative;
+    width: 120px; /* Adjust size as needed */
+    height: 120px;
+    margin: 0 auto 1rem; /* Center and add space below */
+}
+
+.stat-svg {
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg); /* Start progress from top */
+}
+
+.stat-bg,
+.stat-progress {
+    fill: none;
+    stroke-width: 8; /* Stroke thickness */
+}
+
+.stat-bg {
+    stroke: rgba(255, 255, 255, 0.15); /* Light track color */
+}
+
+.stat-progress {
+    stroke: var(--primary-red);
+    stroke-linecap: round; /* Rounded ends */
+    stroke-dasharray: 283; /* Circumference (2 * PI * 45) */
+    stroke-dashoffset: 283; /* Start fully empty */
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.65, 0, 0.35, 1); /* Animation */
+}
+
+.stat-item:hover .stat-progress {
+    /* Optional: slightly change on hover? */
+    /* stroke: var(--accent-red); */
+}
+
+.stat-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: block;
+    font-size: 1.8rem; /* Adjust size to fit circle */
+    font-weight: 700;
+    color: var(--primary-red);
+    margin-bottom: 0; /* Reset margin */
+    line-height: 1;
+}
+
+.stat-label {
+    display: block;
+    font-size: 0.95rem; /* Adjusted size */
+    color: var(--medium-gray); /* Lighter gray for labels */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+    padding: 6rem 1rem;
+    /* background: var(--section-bg-gradient); */
+    background: transparent; /* Make background transparent */
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.testimonial-card {
+    /* Apply glassmorphism */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: 0 4px 20px var(--shadow-color);
+    color: var(--text-color);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensure author stays at bottom */
+    transition: var(--transition), background 0.3s, border-color 0.3s;
+    min-height: 250px; /* Adjust as needed */
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    background: var(--glass-bg-hover); /* Change bg on hover */
+    border: var(--glass-border-hover); /* Change border on hover */
+    box-shadow: 0 8px 25px var(--shadow-color); /* Enhance shadow */
+}
+
+.testimonial-content {
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-content i { /* Quote icon */
+    font-size: 2rem;
+    color: var(--primary-red);
+    margin-bottom: 1rem;
+    display: block;
+    opacity: 0.5;
+}
+
+.testimonial-content p {
+    font-style: italic;
+    color: var(--dark-gray);
+    line-height: 1.7;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: auto; /* Push author to bottom */
+    padding-top: 1.5rem;
+    border-top: 1px solid #eee;
+}
+
+.testimonial-author img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-red);
+}
+
+.testimonial-author h4 {
+    margin-bottom: 0.2rem;
+    color: var(--primary-black);
+}
+
+.testimonial-author p {
+    color: var(--medium-gray);
+    font-size: 0.9rem;
+}
+
+/* Contact Section */
+.contact-section {
+    padding: 6rem 1rem;
+    /* background: var(--section-bg-gradient); */
+    background: transparent; /* Make background transparent */
+}
+
+.contact-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 3rem;
+    max-width: 1200px;
+    margin: 4rem auto 0;
+    align-items: stretch; /* Make columns equal height */
+}
+
+.contact-info {
+    /* Container for the info card */
+}
+
+.contact-card {
+    /* Apply glassmorphism */
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: 0 4px 20px var(--shadow-color);
+    color: var(--text-color);
+    padding: 3rem;
+    height: 100%; /* Fill grid cell height */
+    display: flex;
+    flex-direction: column;
+}
+
+.contact-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    color: var(--primary-red); /* Red heading */
+}
+
+.contact-card h3 i {
+    color: var(--primary-red); /* Ensure icon is Red */
+}
+
+.contact-intro {
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.info-grid {
+    display: grid;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: start; /* Align icon top */
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+    transition: background-color 0.3s ease;
+}
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item:hover {
+    /* Optional: subtle hover effect */
+    /* background-color: rgba(255, 255, 255, 0.05); */
+}
+
+.info-item i {
+    font-size: 1.5rem;
+    color: var(--primary-red); /* Red icons */
+    margin-top: 0.1rem; /* Align icon slightly */
+}
+
+.info-item h4 {
+    margin-bottom: 0.2rem;
+    font-size: 1rem;
+    color: var(--primary-black); /* Default heading color */
+}
+
+.info-item p { color: var(--medium-gray); opacity: 1; } /* Default text color */
+
+.info-item .highlight {
+    color: var(--primary-red); /* Red for light mode */
+    font-weight: 600;
+    display: block;
+    margin-top: 0.1rem;
+}
+
+.info-item .tag {
+    background-color: var(--primary-red);
+    color: var(--primary-white);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 0.3rem;
+}
+
+.info-item .response-time {
+    font-size: 0.8rem;
+    opacity: 0.7;
+    display: block;
+    margin-top: 0.3rem;
+}
+
+.social-links { margin-top: auto; } /* Push to bottom */
+
+.social-links h4 {
+    margin-bottom: 1rem;
+    color: var(--primary-white);
+}
+
+.social-icons {
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--primary-white);
+    font-size: 1rem;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.social-icon:hover {
+    background-color: var(--primary-red);
+    color: var(--primary-white);
+    transform: scale(1.1);
+}
+
+.contact-form {
+    background-color: var(--light-gray); /* Light gray form background */
+    padding: 3rem;
+    border-radius: 12px;
+    height: 100%; /* Fill grid cell height */
+    display: flex;
+    flex-direction: column;
+}
+
+.form-header {
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #dee2e6;
+    padding-bottom: 1.5rem;
+}
+
+.form-header h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--primary-black);
+}
+
+.form-header p {
+    color: var(--medium-gray);
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+    color: var(--text-color);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1.5px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    transition: border-color 0.3s, background 0.3s, color 0.3s;
+    font-size: 1rem;
+    margin-top: 0.3rem; /* Space between label and input */
+    box-shadow: none;
+}
+
+/* Style placeholders */
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: var(--medium-gray);
+    opacity: 1;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: var(--focus-outline);
+    border-color: var(--primary-red);
+    background-color: var(--card-bg);
+}
+
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-footer {
+    margin-top: auto; /* Push footer to bottom */
+    padding-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.submit-btn {
+    background: linear-gradient(90deg, var(--primary-red) 60%, var(--accent-red) 100%);
+    color: #fff !important;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    transition: background 0.3s, box-shadow 0.3s, color 0.3s;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 6px 24px rgba(193,18,31,0.18);
+}
+
+.submit-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0) 100%);
+    transition: left 0.5s ease;
+}
+
+.submit-btn:hover::before {
+    left: 100%;
+}
+
+.submit-btn:hover {
+    background: linear-gradient(90deg, var(--accent-red) 40%, var(--primary-red) 100%);
+    color: #fff;
+    box-shadow: 0 10px 32px rgba(193,18,31,0.28);
+    transform: translateY(-2px);
+}
+
+.submit-btn i {
+    transition: transform 0.3s ease;
+}
+.submit-btn:hover i { transform: translateX(3px); }
+
+.privacy-note {
+    margin-top: 1.5rem;
+    font-size: 0.85rem;
+    color: var(--medium-gray);
+    text-align: center;
+}
+
+.privacy-note a {
+    color: var(--primary-red);
+    text-decoration: none;
+}
+
+.privacy-note a:hover {
+    text-decoration: underline;
+}
+
+/* Footer Styles */
+footer {
+    /* background: var(--bg-color); */
+    background: transparent; /* Make background transparent */
+    color: #e1e1e1;
+    padding: 4rem 1rem 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px; /* Red top border */
+    background: linear-gradient(90deg, var(--primary-red), var(--accent-red));
+}
+
+.footer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto 3rem;
+}
+
+.footer-col h4 {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.1rem;
+    position: relative;
+}
+.footer-col h4::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    width: 40px;
+    height: 2px;
+    background-color: var(--primary-red);
+}
+
+.footer-col ul {
+    list-style: none;
+}
+
+.footer-col ul li {
+    margin-bottom: 0.8rem;
+}
+
+.footer-col a {
+    color: var(--medium-gray);
+    text-decoration: none;
+    transition: color 0.3s ease, padding-left 0.3s ease;
+    display: inline-block;
+    padding: 0.2rem 0;
+    position: relative;
+}
+
+.footer-col a:hover {
+    color: var(--primary-red);
+    padding-left: 5px; /* Indent on hover */
+}
+
+.footer-col a i { font-size: 0.8em; } /* Smaller icons for links */
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #343a40; /* Dark gray separator */
+    font-size: 0.9rem;
+    color: #bdbdbd;
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+    display: none; /* Hide by default, show in media query */
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: var(--primary-black); /* Black lines */
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* Language Selector */
+.language-selector {
+    /* Styles remain similar */
+}
+
+.language-selector a {
+    color: var(--medium-gray); /* Medium gray text */
+    text-decoration: none;
+    margin-left: 0.5rem;
+    font-weight: 500;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    transition: var(--transition);
+}
+
+.language-selector a.active {
+    background-color: var(--primary-red);
+    color: var(--primary-white);
+}
+.language-selector a:not(.active):hover {
+    color: var(--primary-red);
+}
+
+/* Map Marker and Tooltip Styles (Update colors) */
+.custom-marker {
+    background-color: var(--primary-red);
+    border: 2px solid var(--primary-white);
+    /* ... other styles */
+}
+
+.custom-marker:hover {
+    background-color: var(--accent-red);
+}
+
+.custom-marker .marker-dot {
+    background-color: var(--primary-white);
+    /* ... other styles */
+}
+
+/* Example: Update specific map markers if needed */
+.warehouse .marker-dot { background-color: var(--primary-white); } /* Or keep distinct */
+.distribution .marker-dot { background-color: var(--primary-white); }
+.office .marker-dot { background-color: var(--primary-white); }
+
+.map-tooltip {
+    background-color: var(--primary-black);
+    color: var(--primary-white);
+    /* ... other styles */
+}
+
+.map-tooltip::before {
+    border-top-color: var(--primary-black);
+    /* ... other styles */
+}
+
+.leaflet-popup-content-wrapper {
+    background: var(--primary-white);
+    color: var(--dark-gray);
+    /* ... other styles */
+}
+
+.leaflet-popup-content {
+    color: var(--dark-gray);
+    /* ... other styles */
+}
+
+.leaflet-popup-tip {
+    background: var(--primary-white);
+    /* ... other styles */
+}
+
+/* Ensure scroll animations still work */
+.scroll-animate {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-animate.fadeIn { transform: translateY(20px); }
+.scroll-animate.fadeInUp { transform: translateY(50px); }
+.scroll-animate.fadeInLeft { transform: translateX(-50px); }
+.scroll-animate.fadeInRight { transform: translateX(50px); }
+
+.scroll-animate.is-visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Update card and section backgrounds */
+.business-card,
+.testimonial-card,
+.contact-card,
+.dropdown-menu {
+    background: var(--glass-bg);
+    color: var(--text-color);
+    border: var(--glass-border);
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Update form elements */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-red);
+    background-color: var(--card-bg);
+}
+
+/* Update hover states */
+.business-card:hover,
+.testimonial-card:hover,
+.contact-card:hover {
+    background: var(--glass-bg-hover);
+    border: var(--glass-border-hover);
+    box-shadow: 0 10px 30px var(--shadow-color); /* Keep shadow consistent */
+    transform: translateY(-5px) scale(1.03);
+}
+
+/* Adjust placeholder color specifically for dark theme if needed */
+[data-theme="dark"] .form-group input::placeholder,
+[data-theme="dark"] .form-group textarea::placeholder {
+    color: var(--placeholder-color-dark); /* Use dark theme variable */
+}
+
+/* Map Tooltip/Popup adjustments for Dark Theme */
+[data-theme="dark"] .leaflet-popup-content-wrapper {
+    background: var(--card-bg);
+    color: var(--text-color);
+    box-shadow: 0 3px 14px var(--shadow-color);
+}
+
+[data-theme="dark"] .leaflet-popup-content {
+    color: var(--text-color); /* Ensure text inside popup is readable */
+}
+
+[data-theme="dark"] .leaflet-popup-tip {
+    background: var(--card-bg);
+}
+
+/* Add white outline to service items in dark theme */
+[data-theme="dark"] .service-item {
+    border: 1px solid var(--pure-white);
+}
+
+/* Scroll Animation Base */
+.scroll-animate {
+    opacity: 0;
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.scroll-animate.fadeIn { transform: translateY(20px); }
+.scroll-animate.fadeInUp { transform: translateY(50px); }
+.scroll-animate.fadeInLeft { transform: translateX(-50px); }
+.scroll-animate.fadeInRight { transform: translateX(50px); }
+
+.scroll-animate.is-visible {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+/* Update card and section backgrounds */
+.business-card,
+.testimonial-card,
+.contact-card,
+.dropdown-menu {
+    background: var(--glass-bg);
+    color: var(--text-color);
+    border: var(--glass-border);
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Update form elements */
+.form-group input,
+.form-group textarea,
+.form-group select {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-red);
+    background-color: var(--card-bg);
+}
+
+/* Update hover states */
+.business-card:hover,
+.testimonial-card:hover,
+.contact-card:hover {
+    background: var(--glass-bg-hover);
+    border: var(--glass-border-hover);
+    box-shadow: 0 10px 30px var(--shadow-color); /* Keep shadow consistent */
+    transform: translateY(-5px) scale(1.03);
+}
+
+/* Keep specific .region-item.active style */
+.region-item.active {
+    background: var(--glass-bg-hover);
+    border: var(--glass-border-hover);
+    box-shadow: 0 4px 15px rgba(193,18,31,0.1); /* Keep specific active shadow? Or use hover one? */
+    /* transform: translateY(-5px) scale(1.03); */ /* Optional: Add transform to active */
+}
+.region-item.active::before { /* Ensure ::before shows */
+    transform: scaleY(1);
+    transform-origin: top;
+}
+
+/* General polish: hover, active, transitions */
+.main-menu a,
+.dropdown-menu a, /* Keep link transitions */
+.language-selector a,
+.social-icon,
+.btn, .submit-btn {
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s, border-color 0.3s, transform 0.2s;
+}
+
+/* Ensure high contrast for all headings */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-black); /* Default heading color */
+    font-weight: 700;
+}
+[data-theme="dark"] h1, [data-theme="dark"] h2, [data-theme="dark"] h3, [data-theme="dark"] h4, [data-theme="dark"] h5, [data-theme="dark"] h6 {
+    color: var(--text-color1); /* Default light text color for headings in dark mode */
+}
+
+/* Fix for info-item highlight */
+.info-item .highlight {
+    color: var(--primary-red);
+    font-weight: 700;
+}
+[data-theme="dark"] .info-item .highlight {
+    color: var(--pure-white); /* White highlight text in contact info */
+}
+
+/* Subtle card hover effect */
+.business-card:hover,
+.testimonial-card:hover,
+.contact-card:hover {
+    transform: translateY(-8px) scale(1.025);
+    box-shadow: 0 12px 36px rgba(193,18,31,0.18);
+}
+
+/* Fix for mobile menu button in dark mode */
+[data-theme="dark"] .mobile-menu-btn span {
+    background-color: var(--text-color);
+}
+
+/* Removed redundant .service-item h3 rule from earlier */
+
+/* Override specific elements for white in dark mode */
+[data-theme="dark"] .section-title h2 {
+    color: var(--pure-white); /* White section titles */
+}
+
+[data-theme="dark"] .business-card h3 {
+    color: var(--pure-white); /* White business card titles */
+}
+
+[data-theme="dark"] .service-item h3 { /* Already added above, consolidating here for clarity */
+    color: var(--pure-white); /* White service item titles */
+}
+
+.info-item .highlight {
+    color: var(--primary-red);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .info-item .highlight {
+    color: var(--pure-white); /* White highlight text in contact info */
+}
+
+/* Explicit white for footer links in dark mode */
+[data-theme="dark"] .footer-col a {
+    color: var(--pure-white);
+}
+[data-theme="dark"] .footer-col a:hover {
+    color: var(--primary-red); /* Keep red hover for footer links */
+}
+
+/* Keep business card hover styles consistent */
+.business-card:hover,
+.service-item:hover,
+.region-item:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 30px var(--shadow-color);
+}
+
+/* Ensure Mobile Menu button spans are visible in dark mode */
+[data-theme="dark"] .mobile-menu-btn span {
+    background-color: var(--text-color);
+}
+
+/* Removed redundant rules and consolidations */
+
+/* Ensure text color contrasts properly on glass backgrounds */
+.business-card h3,
+.service-item h3 {
+    color: var(--primary-red); /* Keep red heading for light mode */
+}
+.business-card p,
+.service-item p,
+.region-details p,
+.testimonial-content p,
+.testimonial-author p {
+    color: var(--medium-gray); /* Use medium gray for paragraph text */
+}
+
+[data-theme="dark"] .business-card h3,
+[data-theme="dark"] .service-item h3 {
+    color: var(--primary-red); /* Use the dark theme primary red */
+}
+
+[data-theme="dark"] .business-card p,
+[data-theme="dark"] .service-item p,
+[data-theme="dark"] .region-details p,
+[data-theme="dark"] .testimonial-content p,
+[data-theme="dark"] .testimonial-author p {
+    color: var(--dark-gray); /* Use dark gray for paragraph text in dark mode */
+}
+
+[data-theme="dark"] .region-item.active {
+    background: rgba(255, 255, 255, 0.15); /* Slightly more opaque active state */
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+/* Update dropdown to use glassmorphism variables */
+.dropdown-menu {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    box-shadow: 0 4px 20px var(--shadow-color);
+    color: var(--text-color);
+    display: none;
+    position: absolute;
+    min-width: 220px;
+    padding: 0.8rem 0;
+    transform-origin: top;
+    animation: dropdownFade 0.3s ease;
+    transition: background 0.3s, border-color 0.3s;
+}
+
+.dropdown-menu:hover { /* Added hover state for consistency */
+    background: var(--glass-bg-hover);
+    border: var(--glass-border-hover);
+}
+
+/* Adjust dropdown link hover background */
+.dropdown-menu a:hover {
+    background-color: var(--hover-bg); /* Use variable */
+    padding-left: 1.5rem;
+    color: var(--primary-red);
+}
+
+/* Remove redundant/conflicting rules from the end if present */
+/* e.g., remove duplicate .business-card:hover styles if they exist near the end */
+
+/* Consolidate transition properties for glass elements */
+.business-card,
+.region-item,
+.service-item,
+.testimonial-card,
+.dropdown-menu {
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Adjust map overlay for better visibility with glass cards */
+.map-overlay {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background: var(--glass-bg); /* Apply glass to legend */
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    padding: 1rem;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    z-index: 10;
+    transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+.map-overlay:hover {
+    background: var(--glass-bg-hover);
+    border: var(--glass-border-hover);
+}
+
+/* Ensure legend text is readable */
+.legend-item {
+    color: var(--text-color);
+}
+
+/* Ensure input/textarea backgrounds contrast with glass */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    background: rgba(var(--primary-white-rgb, 255, 255, 255), 0.1); /* Use theme-aware transparency */
+    color: var(--text-color);
+    border: 1px solid rgba(var(--primary-white-rgb, 255, 255, 255), 0.2);
+    backdrop-filter: blur(2px); /* Subtle blur */
+    -webkit-backdrop-filter: blur(2px);
+}
+
+[data-theme="dark"] .form-group input,
+[data-theme="dark"] .form-group select,
+[data-theme="dark"] .form-group textarea {
+    background: rgba(var(--primary-black-rgb, 18, 18, 18), 0.2); /* Darker transparent bg */
+    border: 1px solid rgba(var(--primary-black-rgb, 18, 18, 18), 0.3);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    background: rgba(var(--primary-white-rgb, 255, 255, 255), 0.2); /* Slightly more opaque on focus */
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 2px rgba(var(--primary-red-rgb, 193, 18, 31), 0.2); /* Focus ring */
+}
+
+[data-theme="dark"] .form-group input:focus,
+[data-theme="dark"] .form-group select:focus,
+[data-theme="dark"] .form-group textarea:focus {
+    background: rgba(var(--primary-black-rgb, 18, 18, 18), 0.3);
+    border-color: var(--primary-red); /* Use dark theme red */
+    box-shadow: 0 0 0 2px rgba(var(--primary-red-rgb, 255, 75, 92), 0.3); /* Dark theme focus ring */
+}
+
+/* Define RGB versions of colors for rgba() usage if not already defined */
+:root {
+    --primary-white-rgb: 255, 255, 255;
+    --primary-red-rgb: 193, 18, 31;
+    --primary-black-rgb: 24, 24, 27; /* Corresponds to #18181b */
+
+    /* ... other root variables ... */
+}
+
+[data-theme="dark"] {
+     --primary-black-rgb: 248, 250, 252; /* Corresponds to #f8fafc */
+     --primary-red-rgb: 255, 75, 92; /* Corresponds to #ff4b5c */
+    /* ... other dark theme variables ... */
+}
+
+/* Bar Graph Section */
+.results-graph-section {
+    padding: 6rem 1rem;
+    /* background: var(--section-bg-gradient); */ /* Use existing gradient or define a new one */
+    background: transparent; /* Make background transparent */
+}
+
+/* Updated from graph-container to graph-grid */
+.graph-grid {
+    max-width: 1200px; /* Wider container for grid */
+    margin: 3rem auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Responsive grid */
+    gap: 2rem;
+    align-items: start; /* Align items to the top */
+}
+
+.graph-item {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
+    border-radius: var(--glass-radius);
+    padding: 2rem; /* Padding inside each item */
+    box-shadow: var(--shadow);
+    color: var(--text-color);
+    min-height: 350px; /* Give items a consistent minimum height */
+    display: flex;
+    flex-direction: column;
+}
+
+.graph-item h4 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    color: var(--primary-red);
+    font-weight: 600;
+}
+
+[data-theme="dark"] .graph-item h4 {
+    color: var(--primary-red); /* Keep red in dark mode or adjust */
+}
+
+/* Bar Graph Styles (within .graph-item) */
+.bar-graphs-container { /* Specific container */
+    /* Adjust padding or margins if needed */
+}
+
+.bar-item {
+    margin-bottom: 1.5rem;
+}
+.bar-item:last-child {
+    margin-bottom: 0;
+}
+
+.bar-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.bar-label span:first-child {
+    color: var(--primary-black); /* Label color */
+}
+
+.bar-label span:last-child {
+    color: var(--primary-red); /* Value color */
+    font-weight: 700;
+}
+
+/* Dark theme label adjustments */
+[data-theme="dark"] .bar-label span:first-child {
+    color: var(--text-color); /* Lighter label in dark mode */
+}
+
+.bar-wrapper {
+    height: 12px; /* Height of the bar track */
+    background-color: rgba(0, 0, 0, 0.08); /* Light track color */
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+[data-theme="dark"] .bar-wrapper {
+    background-color: rgba(255, 255, 255, 0.1); /* Dark theme track color */
+}
+
+.bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-red) 60%, var(--accent-red) 100%);
+    border-radius: 6px;
+    width: 0; /* Initial width */
+    transition: width 1.5s cubic-bezier(0.65, 0, 0.35, 1); /* Animation */
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Pie Chart Styles */
+.pie-chart-container {
+    align-items: center; /* Center pie chart vertically */
+}
+
+.pie-chart {
+    width: 100%;
+    max-width: 200px; /* Max size of the pie */
+    margin: 0 auto 1.5rem; /* Center horizontally */
+    transform: rotate(-90deg); /* Start segments from the top */
+    display: block;
+}
+
+.pie-slice {
+    fill: none;
+    stroke-width: 80; /* This creates the segments (radius * 2) */
+    /* stroke-dasharray will be set by JS */
+    stroke-dashoffset: 0; /* Start full */
+    transition: stroke-dashoffset 1.5s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.pie-legend {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+    font-size: 0.9rem;
+    margin-top: auto; /* Push legend down if needed */
+}
+
+.pie-legend .legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Center legend items */
+    margin-bottom: 0.5rem;
+    gap: 0.5rem;
+}
+
+.pie-legend .legend-item .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Line Graph Styles */
+.line-graph-container {
+    /* Add specific styles if needed */
+    align-items: center;
+}
+
+.line-graph {
+    width: 100%;
+    height: auto; /* Maintain aspect ratio */
+    max-height: 200px; /* Limit height */
+    margin: 0 auto;
+    display: block;
+}
+
+.line-graph .axis {
+    fill: none;
+    stroke: var(--medium-gray);
+    stroke-width: 1;
+}
+
+.line-graph .line-data {
+    fill: none;
+    stroke: var(--primary-red);
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    /* stroke-dasharray will be set by JS for animation */
+    transition: stroke-dashoffset 2s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.line-graph .axis-label {
+    font-size: 8px; /* Smaller labels */
+    fill: var(--medium-gray);
+    text-anchor: middle;
+}
+
+.line-graph .axis-label.y-label {
+    text-anchor: start;
+}
+
+/* Service Item hover fix (ensure consistency) */
+.service-item:hover {
+    transform: translateY(-5px) scale(1.03);
+    box-shadow: 0 10px 30px var(--shadow-color);
+    background: var(--glass-bg-hover);
+    border: var(--glass-border-hover);
+}
+
+/* Ensure scroll animations work for the graph bars */
+.scroll-animate.is-visible .bar {
+    width: calc(var(--bar-value) * 1%); /* Calculate width from data-value */
+}
+
+/* Animation for Pie Chart Slices */
+.scroll-animate.is-visible .pie-slice {
+    stroke-dashoffset: var(--slice-offset);
+}
+
+/* Animation for Line Graph */
+.scroll-animate.is-visible .line-data {
+    stroke-dashoffset: 0;
+} 
