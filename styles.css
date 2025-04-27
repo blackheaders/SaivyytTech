@@ -5,8 +5,8 @@ html {
 /* Reset and Base Styles */
 :root {
     /* Elegant Red, White, Black Color Scheme */
-    --primary-red: #c1121f;           /* Deep Elegant Red */
-    --accent-red: #d90429;            /* Accent Red */
+    --primary-red: #ae2012;           /* Lighter Maroon */
+    --accent-red: #bb3e03;            /* Corresponding Accent */
     --primary-black: #18181b;         /* Charcoal/Black */
     --dark-gray: #23272f;
     --medium-gray: #64748b;
@@ -43,8 +43,8 @@ html {
 
 /* Dark Theme Colors */
 [data-theme="dark"] {
-    --primary-red: #ff4b5c;
-    --accent-red: #ff6f61;
+    --primary-red: #ae2012; /* Lighter Maroon */
+    --accent-red: #bb3e03;  /* Corresponding Accent */
     --primary-black: #f8fafc;
     --dark-gray: #cbd5e1;
     --medium-gray: #94a3b8;
@@ -149,7 +149,7 @@ header {
 }
 
 .logo a {
-    color: var(--primary-red); /* Red logo text */
+    color: #fff0db; /* Updated logo text color */
     text-decoration: none;
     font-size: 1.5rem;
     font-weight: 700;
@@ -1360,8 +1360,9 @@ footer::before {
 }
 
 .language-selector a.active {
-    background-color: var(--primary-red);
-    color: var(--primary-white);
+    color: #fff0db; /* Updated active language button color */
+    background-color: var(--primary-red); /* Maintain red background */
+    border-radius: 4px;
 }
 .language-selector a:not(.active):hover {
     color: var(--primary-red);
