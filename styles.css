@@ -43,7 +43,7 @@ html {
 
 /* Dark Theme Colors */
 [data-theme="dark"] {
-    --primary-red: #ae2012; /* Lighter Maroon */
+    --primary-red: #a91101; /* Lighter Maroon */
     --accent-red: #bb3e03;  /* Corresponding Accent */
     --primary-black: #f8fafc;
     --dark-gray: #cbd5e1;
@@ -963,7 +963,7 @@ header {
 
 .contact-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: 1fr 1fr; /* Added this line for explicit two columns */
     gap: 3rem;
     max-width: 1200px;
     margin: 4rem auto 0;
@@ -1328,20 +1328,26 @@ footer::before {
 
 /* Mobile Menu Button */
 .mobile-menu-btn {
-    display: none; /* Hide by default, show in media query */
+    display: none; /* Hide by default */
     background: none;
     border: none;
     cursor: pointer;
     padding: 0.5rem;
+    /* z-index is set within the media query where it's displayed */
 }
 
 .mobile-menu-btn span {
     display: block;
     width: 25px;
     height: 3px;
-    background-color: var(--primary-black); /* Black lines */
+    /* Explicitly set color here for base state if needed, but rely on theme */
+    background-color: var(--text-color);
     margin: 5px 0;
     transition: all 0.3s ease;
+}
+
+[data-theme="dark"] .mobile-menu-btn span {
+    background-color: var(--pure-white); /* Ensure visibility on dark header */
 }
 
 /* Language Selector */
@@ -2003,4 +2009,308 @@ h1, h2, h3, h4, h5, h6 {
 /* Animation for Line Graph */
 .scroll-animate.is-visible .line-data {
     stroke-dashoffset: 0;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+    .header-container,
+    .network-container,
+    .services-grid,
+    .testimonials-grid,
+    .contact-container,
+    .footer-grid {
+        padding: 1rem 2rem;
+    }
+
+    .business-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+        padding: 1rem 2rem;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+}
+
+@media screen and (max-width: 992px) {
+    .main-menu {
+        display: block; /* Change from flex */
+        position: fixed;
+        top: 0;
+        left: -100%; /* Start off-screen to the left */
+        width: 280px; /* Adjust width as needed */
+        height: 100vh;
+        background: var(--header-bg); /* Use header background or a darker glass */
+        backdrop-filter: var(--glass-blur);
+        -webkit-backdrop-filter: var(--glass-blur);
+        padding: 4rem 1.5rem 1.5rem; /* Add more top padding */
+        flex-direction: column;
+        gap: 1.5rem; /* Adjust gap */
+        border-right: var(--glass-border);
+        transition: left 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* Slide transition */
+        z-index: 1100; /* Ensure menu is above overlay */
+        overflow-y: auto;
+    }
+
+    .main-menu.active {
+        left: 0; /* Slide in from the left */
+        display: block; /* Keep display block */
+    }
+
+    .mobile-menu-btn {
+        display: block; /* Show the button */
+        z-index: 1101; /* Ensure button is above menu/overlay */
+        position: relative; /* Needed for z-index */
+    }
+
+    .mobile-menu-btn.active span {
+         background-color: var(--primary-red); /* Change color when active */
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+
+    /* Add an overlay for the rest of the page */
+    body.menu-open::after {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1099; /* Below menu, above content */
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none; /* Allow clicks through initially */
+    }
+
+    body.menu-open.overlay-active::after {
+        opacity: 1;
+        pointer-events: auto; /* Allow clicks on overlay to close menu */
+    }
+
+    .main-menu a {
+        /* Adjust link styles for side menu */
+        padding: 0.8rem 0; /* Adjust padding */
+        display: block;
+        width: 100%;
+        color: var(--text-color); /* Use appropriate text color */
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .main-menu a:hover, .main-menu a:active {
+        color: var(--primary-red);
+        background: none; /* Remove background hover */
+        padding-left: 10px; /* Indent on hover/active */
+    }
+
+    .main-menu a::after {
+        display: none; /* Remove underline */
+    }
+
+    /* Adjust header container padding if needed */
+    .header-container {
+        /* padding-right: 4rem; /* Ensure space for button if it moves */
+    }
+
+    .network-container {
+        /* Ensure it stacks */
+        grid-template-columns: 1fr; /* Change from flex-direction to grid */
+        gap: 2rem;
+    }
+
+    .map-container {
+        /* Ensure map takes full width and reasonable height */
+        width: 100%;
+        height: 400px; /* Adjust height for mobile */
+        order: 1; /* Ensure map comes first visually if needed, or adjust grid order */
+    }
+
+    .network-info {
+         width: 100%;
+         order: 2; /* Ensure info comes second */
+    }
+
+    .slide-content h2 {
+        font-size: 2.5rem;
+    }
+
+    .slide-features {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr; /* Stack contact info and form */
+        gap: 2rem;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .logo a {
+        font-size: 1.2rem;
+    }
+
+    .india-tag {
+        font-size: 0.7rem;
+    }
+
+    .business-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .slide-content h2 {
+        font-size: 2rem;
+    }
+
+    .section-title h2 {
+        font-size: 1.8rem;
+    }
+
+    .form-row {
+        flex-direction: column;
+    }
+
+    .form-group {
+        width: 100%;
+    }
+
+    .graph-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .map-container {
+        height: 350px; /* Slightly smaller map height */
+    }
+
+    .contact-container {
+        grid-template-columns: 1fr; /* Reinforce stacking */
+    }
+
+    .contact-card,
+    .contact-form {
+        padding: 2rem; /* Adjust padding for smaller screens */
+    }
+
+    /* Added padding adjustment for main sections */
+    .business-section,
+    .network-section,
+    .services-highlight,
+    .results-graph-section,
+    .stats-section,
+    .testimonials-section,
+    .contact-section {
+        padding: 4rem 1rem; /* Reduced top/bottom padding */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .header-container {
+        padding: 0.8rem 1rem;
+    }
+
+    .logo a {
+        font-size: 1rem;
+    }
+
+    .india-tag {
+        display: none;
+    }
+
+    .slide-content h2 {
+        font-size: 1.5rem;
+    }
+
+    .section-title h2 {
+        font-size: 1.5rem;
+    }
+
+    .business-card,
+    .service-item,
+    .testimonial-card {
+        padding: 1.2rem;
+    }
+
+    .contact-card {
+        padding: 1.5rem;
+    }
+
+    .social-icons {
+        gap: 1rem;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Added padding adjustment for main sections */
+    .business-section,
+    .network-section,
+    .services-highlight,
+    .results-graph-section,
+    .stats-section,
+    .testimonials-section,
+    .contact-section {
+        padding: 3rem 1rem; /* Further reduced top/bottom padding */
+    }
+}
+
+/* Add styles for mobile menu button */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1000;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    /* Explicitly set color here for base state if needed, but rely on theme */
+    background-color: var(--text-color);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.mobile-menu-btn.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -6px);
 } 

@@ -2,30 +2,113 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile menu toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const mainMenu = document.querySelector('.main-menu');
-    
-    mobileMenuBtn?.addEventListener('click', () => {
-        mobileMenuBtn.classList.toggle('active');
-        mainMenu.classList.toggle('active');
+    const body = document.body;
+
+    function closeMenu() {
+        mobileMenuBtn?.classList.remove('active');
+        mainMenu?.classList.remove('active');
+        body.classList.remove('menu-open', 'overlay-active');
+    }
+
+    mobileMenuBtn?.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent click from immediately closing menu via body listener
+        const isActive = mobileMenuBtn.classList.toggle('active');
+        mainMenu.classList.toggle('active', isActive);
+        body.classList.toggle('menu-open', isActive);
+        // Add overlay slightly delayed to allow menu transition
+        setTimeout(() => {
+            body.classList.toggle('overlay-active', isActive);
+        }, 50);
     });
 
-    // Dropdown menus
-    const dropdowns = document.querySelectorAll('.dropdown');
+    // Close mobile menu when clicking on the overlay
+    body.addEventListener('click', (e) => {
+        // Check if the click is on the overlay itself (::after pseudo-element)
+        if (body.classList.contains('overlay-active') && e.target === body) {
+             // We check if the click is exactly on the body which acts as the overlay trigger area
+             // This requires the ::after pseudo-element to have pointer-events: auto
+             closeMenu();
+        }
+    });
+
+    // Dropdown menus (Keep existing logic, but maybe adjust for side menu)
+    const dropdowns = document.querySelectorAll('.main-menu .dropdown'); // Target dropdowns inside main menu
     
     dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('click', (e) => {
-            const isLink = e.target.tagName === 'A';
-            if (isLink && window.innerWidth > 768) return; // Allow desktop links to work normally
-            
-            e.preventDefault();
-            dropdown.classList.toggle('active');
-            
-            // Close other dropdowns
-            dropdowns.forEach(other => {
-                if (other !== dropdown) {
-                    other.classList.remove('active');
+        const dropdownToggle = dropdown.querySelector('a'); // Assuming the link triggers dropdown
+        const dropdownMenu = dropdown.querySelector('.dropdown-menu');
+
+        // Prevent default link behavior only if it has a dropdown
+        if (dropdownToggle && dropdownMenu) {
+            dropdownToggle.addEventListener('click', (e) => {
+                // Only toggle dropdown on mobile/side menu
+                if (window.innerWidth <= 992) {
+                    e.preventDefault(); 
+                    e.stopPropagation(); // Prevent closing the main menu
+                    // Simple toggle for side menu dropdowns
+                    const currentlyActive = dropdown.classList.contains('submenu-active');
+                    // Close other submenus
+                    dropdowns.forEach(d => d.classList.remove('submenu-active'));
+                    // Toggle current submenu
+                    dropdown.classList.toggle('submenu-active', !currentlyActive); 
+                }
+                // Allow normal link behavior on desktop
+            });
+        } 
+    });
+
+    // Close mobile menu when clicking a link (inside the side menu)
+    const menuLinks = document.querySelectorAll('.main-menu a');
+    menuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Only close if it's NOT a dropdown toggle link in mobile view
+            const isDropdownToggle = link.parentElement.classList.contains('dropdown');
+            if (window.innerWidth <= 992 && !isDropdownToggle) {
+                 closeMenu();
+            }
+            // Allow smooth scroll for anchor links
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#') && href.length > 1) {
+                const target = document.querySelector(href);
+                 if (target) {
+                    // Close menu *before* scrolling
+                    if (window.innerWidth <= 992) closeMenu(); 
+                    // Use timeout to ensure menu close transition finishes before scroll
+                    setTimeout(() => {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }, 50); 
+                }
+            }
+        });
+    });
+
+    // Close mobile menu when clicking outside (Refined logic)
+    // Removed the general body click listener for outside closing,
+    // rely on overlay click and link clicks instead for clarity.
+
+    // Handle window resize (Keep existing logic, ensure it closes side menu)
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+            // Reset mobile menu state on window resize if switching to desktop
+            if (window.innerWidth > 992) {
+                closeMenu(); // Use the closeMenu function
+            }
+
+            // ... rest of existing resize logic ...
+            // Recalculate graph dimensions if needed
+            const graphs = document.querySelectorAll('.graph-grid');
+            graphs.forEach(graph => {
+                if (graph.dataset.graphsAnimated) {
+                    // Reset animation state to allow re-animation with new dimensions
+                    graph.dataset.graphsAnimated = 'false';
+                    // Trigger intersection observer check
+                    animateOnScroll.unobserve(graph);
+                    animateOnScroll.observe(graph);
                 }
             });
-        });
+        }, 250); // Debounce resize events
     });
 
     // Hero slider functionality
@@ -598,4 +681,38 @@ document.addEventListener('DOMContentLoaded', () => {
             "retina_detect": true
           });
     }
+
+    // Improve touch interaction for mobile devices
+    if ('ontouchstart' in window) {
+        document.body.classList.add('touch-device');
+        
+        // Add touch feedback to buttons and links
+        const interactiveElements = document.querySelectorAll('button, .btn, .business-card, .service-item');
+        interactiveElements.forEach(element => {
+            element.addEventListener('touchstart', function() {
+                this.classList.add('touch-active');
+            });
+            
+            element.addEventListener('touchend', function() {
+                this.classList.remove('touch-active');
+            });
+            
+            element.addEventListener('touchcancel', function() {
+                this.classList.remove('touch-active');
+            });
+        });
+    }
+
+    // Optimize scroll performance
+    let scrollTimeout;
+    window.addEventListener('scroll', () => {
+        if (!document.body.classList.contains('is-scrolling')) {
+            document.body.classList.add('is-scrolling');
+        }
+        
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            document.body.classList.remove('is-scrolling');
+        }, 150);
+    }, { passive: true });
 }); 
