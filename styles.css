@@ -1,5 +1,8 @@
 html {
     scroll-behavior: smooth;
+    width: 100dvw;
+    overflow-x: hidden;
+    position: relative;
 }
 
 /* Reset and Base Styles */
@@ -149,10 +152,17 @@ header {
 }
 
 .logo a {
-    color: #fff0db; /* Updated logo text color */
+    display: flex;
+    align-items: center;
     text-decoration: none;
-    font-size: 1.5rem;
-    font-weight: 700;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.logo a span {
+    margin-left: 0.5rem;
+    color: #ffffff;
 }
 
 .india-tag {
@@ -498,7 +508,7 @@ header {
 .business-card h3 { color: var(--primary-red); } /* Keep primary red for light mode */
 .business-card p { color: var(--medium-gray); } /* Keep medium gray for light mode */
 
-/* Network Section */
+/* Network Section */   
 .network-section {
     padding: 6rem 1rem;
     /* background: var(--section-bg-gradient); */
@@ -959,6 +969,9 @@ header {
     padding: 6rem 1rem;
     /* background: var(--section-bg-gradient); */
     background: transparent; /* Make background transparent */
+    overflow-x: hidden;
+    position: relative;
+    
 }
 
 .contact-container {
@@ -2208,27 +2221,30 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .map-container {
-        height: 350px; /* Slightly smaller map height */
+        height: 350px;
     }
 
     .contact-container {
-        grid-template-columns: 1fr; /* Reinforce stacking */
+        grid-template-columns: 1fr;
     }
 
-    .contact-card,
-    .contact-form {
-        padding: 2rem; /* Adjust padding for smaller screens */
+    /* Specific contact section styles */
+    .contact-section .contact-card,
+    .contact-section .contact-form {
+        padding: 2rem 1rem;
+        width: calc(100% - 2rem);
+        margin: 0 auto;
+        max-width: 500px; /* Add max-width to prevent stretching */
     }
 
-    /* Added padding adjustment for main sections */
-    .business-section,
-    .network-section,
-    .services-highlight,
-    .results-graph-section,
-    .stats-section,
-    .testimonials-section,
-    .contact-section {
-        padding: 4rem 1rem; /* Reduced top/bottom padding */
+    .contact-section .info-grid {
+        padding: 0 0.5rem;
+        width: 100%;
+    }
+
+    .contact-section .form-group {
+        padding: 0 0.5rem;
+        width: 100%;
     }
 }
 
@@ -2271,15 +2287,23 @@ h1, h2, h3, h4, h5, h6 {
         grid-template-columns: 1fr;
     }
 
-    /* Added padding adjustment for main sections */
-    .business-section,
-    .network-section,
-    .services-highlight,
-    .results-graph-section,
-    .stats-section,
-    .testimonials-section,
-    .contact-section {
-        padding: 3rem 1rem; /* Further reduced top/bottom padding */
+    /* Specific contact section styles */
+    .contact-section .contact-card,
+    .contact-section .contact-form {
+        padding: 1.5rem 1rem;
+        width: calc(100% - 2rem);
+        margin: 0 auto;
+        max-width: 500px; /* Add max-width to prevent stretching */
+    }
+
+    .contact-section .info-grid {
+        padding: 0 0.5rem;
+        width: 100%;
+    }
+
+    .contact-section .form-group {
+        padding: 0 0.5rem;
+        width: 100%;
     }
 }
 
@@ -2314,3 +2338,268 @@ h1, h2, h3, h4, h5, h6 {
 .mobile-menu-btn.active span:nth-child(3) {
     transform: rotate(-45deg) translate(7px, -6px);
 } 
+
+/* Contact Section Mobile Centering */
+@media screen and (max-width: 768px) {
+    .contact-section {
+        padding: 2rem 1rem;
+    }
+
+    .contact-section .contact-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .contact-section .contact-card,
+    .contact-section .contact-form {
+        padding: 2rem;
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .contact-section .contact-info {
+        width: 100%;
+        padding: 0 1rem;
+        box-sizing: border-box;
+    }
+
+    /* Fix text overflow in contact card */
+    .contact-section .info-item {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 0.5rem 0;
+    }
+
+    .contact-section .info-item p,
+    .contact-section .info-item h4 {
+        word-break: break-word;
+        max-width: 100%;
+    }
+
+    /* Improve contact form layout */
+    .contact-section .form-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-section .form-group {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .contact-section .form-group input,
+    .contact-section .form-group select,
+    .contact-section .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .contact-section {
+        padding: 1.5rem 1rem;
+    }
+
+    .contact-section .contact-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .contact-section .contact-card,
+    .contact-section .contact-form {
+        padding: 1.5rem;
+        width: 100%;
+        max-width: 400px;
+        margin: 0 auto;
+        box-sizing: border-box;
+    }
+
+    .contact-section .contact-info {
+        width: 100%;
+        padding: 0 1rem;
+        box-sizing: border-box;
+    }
+
+    /* Fix text overflow in contact card */
+    .contact-section .info-item {
+        word-wrap: break-word;
+        overflow-wrap: break-word;
+        padding: 0.5rem 0;
+    }
+
+    .contact-section .info-item p,
+    .contact-section .info-item h4 {
+        word-break: break-word;
+        max-width: 100%;
+    }
+
+    /* Improve contact form layout */
+    .contact-section .form-row {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .contact-section .form-group {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .contact-section .form-group input,
+    .contact-section .form-group select,
+    .contact-section .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        box-sizing: border-box;
+    }
+}
+
+/* Popup Animation */
+.popup-animation {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.popup-animation.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.popup-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.5s ease;
+}
+
+.popup-logo {
+    margin-bottom: 1rem;
+}
+
+.popup-animation.active .popup-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.popup-logo {
+    max-width: 200px;
+    margin-bottom: 1rem;
+    animation: pulse 2s infinite;
+}
+
+.popup-content h2 {
+    color: #ffffff;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.popup-content p {
+    color: #ffffff;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+/* Navigation Logo */
+.nav-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffffff;
+    aspect-ratio: 1/1;
+}
+
+.logo a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.logo a span {
+    margin-left: 0.5rem;
+    color: #ffffff;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-logo {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .logo a {
+        font-size: 1.2rem;
+    }
+    
+    .popup-content h2 {
+        font-size: 2rem;
+    }
+    
+    .popup-content p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .nav-logo {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .logo a {
+        font-size: 1rem;
+    }
+    
+    .popup-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .popup-content p {
+        font-size: 0.9rem;
+    }
+}
+
+.popup-logo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ffffff;
+    animation: pulse 2s infinite;
+}

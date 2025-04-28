@@ -717,4 +717,15 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.classList.remove('is-scrolling');
         }, 150);
     }, { passive: true });
+
+    // Popup Animation
+    const popup = document.querySelector('.popup-animation');
+    
+    // Show popup
+    popup.classList.add('active');
+    
+    // Hide popup after 3 seconds
+    setTimeout(() => {
+        popup.classList.remove('active');
+    }, 3000);
 }); 
