@@ -206,12 +206,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // --- Graph Section Animations --- (Bars, Pie, Line)
                 if (target.classList.contains('graph-grid') && !target.dataset.graphsAnimated) {
-                    // Bar Graph Animation (Set --bar-value)
+                    // Bar Graph Animation
                     const bars = target.querySelectorAll('.bar');
                     bars.forEach(bar => {
                         const value = bar.dataset.value || '0';
                         bar.style.setProperty('--bar-value', value);
-                        // The actual animation is handled by CSS using .is-visible
+                        bar.style.width = `${value}%`; // Directly set width for immediate animation
                     });
 
                     // Pie Chart Animation
@@ -229,9 +229,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         slice.style.stroke = slice.dataset.color || 'var(--primary-red)';
                         slice.style.strokeDasharray = `${sliceLength} ${sliceSpace}`;
-                        slice.style.strokeDashoffset = pieCircumference + offset; // Start hidden
-                        // Set custom property for CSS transition
-                        slice.style.setProperty('--slice-offset', offset);
+                        slice.style.strokeDashoffset = offset;
                         
                         cumulativePercent += slicePercent;
                     });
@@ -240,14 +238,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     const lineData = target.querySelector('.line-data');
                     if (lineData) {
                         const lineLength = lineData.getTotalLength();
-                        lineData.style.strokeDasharray = `${lineLength} ${lineLength}`;
-                        lineData.style.strokeDashoffset = lineLength; // Start hidden
-                        // Animation is handled by CSS using .is-visible
+                        // Set initial state (hidden)
+                        lineData.style.strokeDasharray = `${lineLength}`;
+                        lineData.style.strokeDashoffset = lineLength;
+                        
+                        // Animate the line drawing
+                        requestAnimationFrame(() => {
+                            lineData.style.transition = 'stroke-dashoffset 1.5s ease-in-out';
+                            lineData.style.strokeDashoffset = '0';
+                        });
                     }
 
-                    target.dataset.graphsAnimated = 'true'; // Mark graphs as animated
-                    // Optionally unobserve if you want the animation only once
-                    // observer.unobserve(target);
+                    target.dataset.graphsAnimated = 'true';
                 }
 
                 // Handle general scroll animations (fade in, etc.)
