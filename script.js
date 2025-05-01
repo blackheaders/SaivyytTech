@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contactForm.addEventListener("submit", (e) => {
         e.preventDefault();
-        sendContactForm("https://vm.tail9e6e2f.ts.net/send-email", contactForm); // Update with your Tailscale IP or domain
+        sendContactForm("tk/send-email", contactForm); // Update with your Tailscale IP or domain
     });
 
     async function sendContactForm(endpointUrl, formElement) {
