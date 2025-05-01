@@ -1,42 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-
-    const contactForm = document.getElementById("contact-form");
-
-    contactForm.addEventListener("submit", (e) => {
-        e.preventDefault();
-        sendContactForm("tk/send-email", contactForm); // Update with your Tailscale IP or domain
-    });
-
-    async function sendContactForm(endpointUrl, formElement) {
-        const formData = new FormData(formElement);
-        
-        // Convert FormData to a plain object
-        const data = Object.fromEntries(formData.entries());
-        
-        try {
-            const response = await fetch(endpointUrl, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json", // Sending as JSON
-                },
-                body: JSON.stringify(data), // Convert to JSON
-            });
-
-            const result = await response.json();  // Assuming your backend sends JSON response
-
-            if (result.status === "success") {
-                alert("✅ Message sent successfully!");
-                formElement.reset();
-            } else {
-                alert("❌ Failed to send message: " + result.message);
-            }
-        } catch (error) {
-            alert("⚠️ Error: " + error.message);
-        }
-    }
-
-      
-
     // Mobile menu toggle
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const mainMenu = document.querySelector('.main-menu');
