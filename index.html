@@ -54,18 +54,30 @@
                 </ul>
             </nav>
             <div class="theme-language-container">
-            
                 <div class="language-selector">
                     <a href="#" class="active">EN</a>
                 </div>
             </div>
-            <button class="mobile-menu-btn">
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
                 <span></span>
                 <span></span>
                 <span></span>
             </button>
         </div>
     </header>
+
+    <!-- Mobile Side Menu -->
+    <div class="mobile-side-menu">
+        <nav>
+            <ul>
+                <li><a href="#solutions"><i class="fas fa-lightbulb"></i> Solutions</a></li>
+                <li><a href="#about"><i class="fas fa-users"></i> About</a></li>
+                <li><a href="#insights"><i class="fas fa-chart-line"></i> Insights</a></li>
+                <li><a href="#contact"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <main>
         <section class="hero-section">
@@ -305,45 +317,45 @@
 
         <section class="stats-section">
             <div class="stats-grid">
-                <div class="stat-item scroll-animate" data-animation="fadeIn" data-value="7" data-max="100">
+                <div class="stat-item scroll-animate" data-animation="fadeIn" data-value="10" data-max="100">
                     <div class="stat-chart-container">
                         <svg viewBox="0 0 100 100" class="stat-svg">
                             <circle class="stat-bg" cx="50" cy="50" r="45"></circle>
                             <circle class="stat-progress" cx="50" cy="50" r="45"></circle>
                         </svg>
-                        <span class="stat-number">7+</span>
+                        <span class="stat-number">10+</span>
                     </div>
                     <span class="stat-label">AI Projects Delivered</span>
                 </div>
-                <div class="stat-item scroll-animate" data-animation="fadeIn" data-delay="0.2s" data-value="4" data-max="100">
+                <div class="stat-item scroll-animate" data-animation="fadeIn" data-delay="0.2s" data-value="98" data-suffix="%" data-max="100">
                      <div class="stat-chart-container">
                         <svg viewBox="0 0 100 100" class="stat-svg">
                             <circle class="stat-bg" cx="50" cy="50" r="45"></circle>
                             <circle class="stat-progress" cx="50" cy="50" r="45"></circle>
                         </svg>
-                        <span class="stat-number">4+</span>
+                        <span class="stat-number">98%</span>
                     </div>
-                    <span class="stat-label">Client Satisfaction</span>
+                    <span class="stat-label">Client Satisfaction Rate</span>
                 </div>
-                <div class="stat-item scroll-animate" data-animation="fadeIn" data-delay="0.4s" data-value="2" data-max="100">
+                <div class="stat-item scroll-animate" data-animation="fadeIn" data-delay="0.4s" data-value="35" data-max="100">
                      <div class="stat-chart-container">
                         <svg viewBox="0 0 100 100" class="stat-svg">
                             <circle class="stat-bg" cx="50" cy="50" r="45"></circle>
                             <circle class="stat-progress" cx="50" cy="50" r="45"></circle>
                         </svg>
-                         <span class="stat-number">2+</span>
+                         <span class="stat-number">35+</span>
                     </div>
                     <span class="stat-label">Industries Served</span>
                 </div>
-                <div class="stat-item scroll-animate" data-animation="fadeIn" data-delay="0.6s" data-value="3" data-max="100">
+                <div class="stat-item scroll-animate" data-animation="fadeIn" data-delay="0.6s" data-value="43" data-max="100">
                     <div class="stat-chart-container">
                         <svg viewBox="0 0 100 100" class="stat-svg">
                             <circle class="stat-bg" cx="50" cy="50" r="45"></circle>
                             <circle class="stat-progress" cx="50" cy="50" r="45"></circle>
                         </svg>
-                        <span class="stat-number">3+</span>
+                        <span class="stat-number">43+</span>
                     </div>
-                    <span class="stat-label">Years of AI Expertise</span>
+                    <span class="stat-label">Sectors Automated with AI</span>
                 </div>
             </div>
         </section>
@@ -423,14 +435,14 @@
                         <div class="social-links">
                             <h4>Connect With Us</h4>
                             <div class="social-icons">
-                                <a href="#" class="social-icon linkedin"><i class="fab fa-linkedin-in"></i></a>
-                                <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
-                                <!-- Add other relevant social links -->
+                                <a href="#" class="social-icon linkedin" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
+                                <a href="https://x.com/SaivyyTech" class="social-icon twitter" target="_blank" rel="noopener noreferrer"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.instagram.com/saivyy_technologies/" class="social-icon instagram" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
-
+    
                 <form class="contact-form scroll-animate" data-animation="fadeInRight" id="contact-form">
                     <div class="form-header">
                         <h3>Send Us a Message</h3>

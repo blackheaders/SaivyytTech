@@ -185,7 +185,7 @@ header {
     color: var(--primary-black); /* Should be white in dark, black in light */
     text-decoration: none;
     font-weight: 500;
-    transition: all 0.3s ease;
+    transition: color 0.15s ease-in-out; /* Even faster transition */
     position: relative;
 }
 
@@ -197,7 +197,7 @@ header {
     bottom: -4px;
     left: 0;
     background-color: var(--primary-red); /* Red underline */
-    transition: width 0.3s ease;
+    transition: width 0.15s ease-in-out; /* Even faster transition */
 }
 
 .main-menu a:hover::after {
@@ -632,26 +632,32 @@ header {
 .india-map-wrapper { /* Keeping class name for now, might need update */
     position: relative;
     height: 100%;
+    width: 100%;
 }
 
 #world-map { /* Updated ID from HTML */
     height: 100%;
     width: 100%;
     background-color: #e0e0e0; /* Placeholder background */
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
 .map-overlay {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background: var(--glass-bg); /* Apply glass to legend */
+    top: 15px;
+    right: 15px;
+    background: var(--glass-bg); /* Keep glass background */
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
     border: var(--glass-border);
     border-radius: var(--glass-radius);
     padding: 1rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    z-index: 10;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    z-index: 999; /* Ensure it's above the map */
+    max-width: 200px;
     transition: background 0.3s ease, border-color 0.3s ease;
 }
 
@@ -669,7 +675,9 @@ header {
     align-items: center;
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
-    color: var(--text-color);
+    color: #333333; /* Dark grey text instead of pure black */
+    font-weight: 500; /* Slightly bolder text */
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7); /* Text shadow for readability */
 }
 
 .legend-item:last-child {
@@ -677,7 +685,7 @@ header {
 }
 
 .legend-item:hover {
-    color: var(--primary-black);
+    color: var(--primary-red); /* Change hover color to red for better interaction */
 }
 
 .dot {
@@ -1339,100 +1347,6 @@ footer::before {
     color: #bdbdbd;
 }
 
-/* Mobile Menu Button */
-.mobile-menu-btn {
-    display: none;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-    z-index: 1000;
-}
-
-.mobile-menu-btn span {
-    display: block;
-    width: 25px;
-    height: 2px;
-    background-color: var(--text-color);
-    margin: 5px 0;
-    transition: all 0.3s ease;
-}
-
-/* Mobile Menu Styles */
-@media screen and (max-width: 768px) {
-    .mobile-menu-btn {
-        display: block;
-    }
-
-    .main-menu {
-        position: fixed;
-        top: 0;
-        right: -280px; /* Start off-screen */
-        width: 280px;
-        height: 100vh;
-        background: var(--header-bg);
-        backdrop-filter: var(--glass-blur);
-        -webkit-backdrop-filter: var(--glass-blur);
-        padding: 4rem 1.5rem 1.5rem;
-        flex-direction: column;
-        gap: 1.5rem;
-        border-left: var(--glass-border);
-        transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-        z-index: 999;
-        overflow-y: auto;
-    }
-
-    .main-menu.active {
-        right: 0;
-    }
-
-    .mobile-menu-btn.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-
-    .mobile-menu-btn.active span:nth-child(2) {
-        opacity: 0;
-    }
-
-    .mobile-menu-btn.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-
-    /* Add overlay when menu is open */
-    body.menu-open::after {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        z-index: 998;
-        opacity: 0;
-        transition: opacity 0.4s ease;
-        pointer-events: none;
-    }
-
-    body.menu-open.overlay-active::after {
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    .main-menu a {
-        padding: 0.8rem 0;
-        display: block;
-        width: 100%;
-        color: var(--text-color);
-        font-size: 1.1rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .main-menu a:hover {
-        color: var(--primary-red);
-        padding-left: 10px;
-    }
-}
-
 /* Language Selector */
 .language-selector {
     /* Styles remain similar */
@@ -1823,16 +1737,17 @@ h1, h2, h3, h4, h5, h6 {
 /* Adjust map overlay for better visibility with glass cards */
 .map-overlay {
     position: absolute;
-    bottom: 20px;
-    left: 20px;
-    background: var(--glass-bg); /* Apply glass to legend */
+    top: 15px;
+    right: 15px;
+    background: var(--glass-bg); /* Keep glass background */
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
     border: var(--glass-border);
     border-radius: var(--glass-radius);
     padding: 1rem;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-    z-index: 10;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+    z-index: 999; /* Ensure it's above the map */
+    max-width: 200px;
     transition: background 0.3s ease, border-color 0.3s ease;
 }
 
@@ -1843,7 +1758,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Ensure legend text is readable */
 .legend-item {
-    color: var(--text-color);
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    color: #333333; /* Dark grey text instead of pure black */
+    font-weight: 500; /* Slightly bolder text */
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.7); /* Text shadow for readability */
 }
 
 /* Ensure input/textarea backgrounds contrast with glass */
@@ -2251,6 +2172,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media screen and (max-width: 768px) {
+    .header-container {
+        min-height: 70px; /* Ensure consistent height for mobile */
+        position: relative; /* Ensure relative positioning for absolute children */
+        padding: 0.8rem 1rem;
+    }
+    
     .logo a {
         font-size: 1.2rem;
     }
@@ -2328,6 +2255,13 @@ h1, h2, h3, h4, h5, h6 {
 @media screen and (max-width: 480px) {
     .header-container {
         padding: 0.8rem 1rem;
+    }
+
+    /* Ensure mobile menu button stays centered */
+    .mobile-menu-btn {
+        top: 50%; /* Consistent vertical centering */
+        transform: translateY(-50%);
+        right: 15px; /* Slightly closer to the edge */
     }
 
     .logo a {
@@ -2685,3 +2619,407 @@ h1, h2, h3, h4, h5, h6 {
     max-width: 200px;
     margin-bottom: 1rem;
     animation: pulse 2s infinite;
+}
+
+/* Consolidate transition properties for glass elements */
+.business-card,
+.region-item,
+.service-item,
+.testimonial-card,
+.dropdown-menu {
+    transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* General polish: hover, active, transitions */
+.dropdown-menu a, /* Keep link transitions */
+.language-selector a,
+.social-icon,
+.btn, .submit-btn {
+    transition: background 0.3s, color 0.3s, box-shadow 0.3s, border-color 0.3s, transform 0.2s;
+}
+
+/* Explicitly override desktop menu link transitions to be faster with higher specificity */
+@media screen and (min-width: 769px) {
+    header .main-menu a,
+    .header-container .main-menu a {
+        transition: color 0.2s ease !important;
+        transition-delay: 0s !important;
+    }
+    
+    header .main-menu a::after,
+    .header-container .main-menu a::after {
+        transition: width 0.2s ease !important;
+    }
+}
+
+/* Mobile Menu Wrapper and Button - NEW DEFINITION */
+.mobile-menu-wrapper {
+    display: none; /* Hide by default on all screens */
+    position: relative;
+    width: 50px;
+    height: 50px;
+    margin-left: auto;
+}
+
+.mobile-menu-btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    position: relative;
+    z-index: 1001;
+}
+
+.mobile-menu-btn .line {
+    display: block;
+    width: 30px;
+    height: 3px;
+    margin: 4px 0;
+    background-color: #ffffff;
+    transition: transform 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+    transform-origin: center;
+    border-radius: 3px;
+}
+
+/* Active state transformations */
+.mobile-menu-btn.active .line-1 {
+    transform: translateY(11px) rotate(45deg);
+    background-color: var(--primary-red);
+}
+
+.mobile-menu-btn.active .line-2 {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.mobile-menu-btn.active .line-3 {
+    transform: translateY(-11px) rotate(-45deg);
+    background-color: var(--primary-red);
+}
+
+/* Mobile Navigation Styles - REVISED VERSION */
+@media screen and (max-width: 768px) {
+    .header-container {
+        min-height: 70px;
+        position: relative;
+        padding: 0.8rem 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    
+    .mobile-menu-wrapper {
+        display: block; /* Show only on mobile */
+        position: relative;
+        width: 50px;
+        height: 50px;
+        margin-left: auto;
+    }
+
+    /* Ensure logo stays visible */
+    .logo {
+        flex-grow: 0;
+        position: relative;
+        z-index: 1000;
+    }
+
+    body .header-container .main-menu {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        width: 300px;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 5rem 1.5rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        transition: all 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
+        z-index: 999;
+        overflow-y: auto;
+        box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+    }
+
+    body .header-container .main-menu.active {
+        right: 0;
+    }
+
+    /* Improved mobile menu link styles */
+    body .header-container .main-menu a {
+        padding: 1rem 0.5rem;
+        display: block;
+        width: 100%;
+        color: #ffffff;
+        font-size: 1.2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        transform: translateX(20px);
+        opacity: 0.7;
+        transition: transform 0.3s ease, color 0.3s ease, padding 0.3s ease, opacity 0.3s ease, background-color 0.3s ease;
+        border-radius: 4px;
+    }
+
+    body .header-container .main-menu.active a {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    body .header-container .main-menu a:hover {
+        color: var(--primary-red);
+        padding-left: 1rem;
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    /* Add icons to menu items for better visual cues */
+    body .header-container .main-menu li {
+        position: relative;
+    }
+    
+    body .header-container .main-menu a::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 0;
+        background-color: var(--primary-red);
+        transition: height 0.3s ease;
+    }
+    
+    body .header-container .main-menu a:hover::before {
+        height: 70%;
+    }
+
+    body .header-container .main-menu.active {
+        right: 0;
+    }
+}
+
+/* Extra small screens - fine tuning */
+@media screen and (max-width: 480px) {
+    .header-container {
+        padding: 0.8rem 1rem;
+    }
+
+    /* Ensure mobile menu button stays properly sized and positioned */
+    .mobile-menu-wrapper {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .mobile-menu-btn .line {
+        width: 25px;
+        height: 2.5px;
+    }
+    
+    /* Adjust rotation angles for smaller lines */
+    .mobile-menu-btn.active .line-1 {
+        transform: translateY(9px) rotate(45deg);
+    }
+    
+    .mobile-menu-btn.active .line-3 {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+}
+
+/* Desktop Menu Button Hiding */
+@media screen and (min-width: 769px) {
+    .mobile-menu-wrapper,
+    .mobile-menu-btn {
+        display: none !important;
+        visibility: hidden;
+    }
+}
+
+/* Mobile Navigation Styles - DEFINITIVE VERSION */
+@media screen and (max-width: 768px) {
+    body .header-container .mobile-menu-btn {
+        display: flex !important; /* Only visible on mobile */
+        visibility: visible;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+
+/* Remove all .mobile-menu-btn and .mobile-menu-wrapper styles so the icon is never shown */
+.mobile-menu-btn, .mobile-menu-wrapper {
+    display: none !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    height: 0 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1000;
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--text-color);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.mobile-side-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-right: var(--glass-border);
+    transition: left 0.3s ease;
+    z-index: 999;
+    overflow-y: auto;
+}
+
+.mobile-side-menu.active {
+    left: 0;
+}
+
+.mobile-side-menu nav ul {
+    list-style: none;
+    padding: 5rem 1.5rem 1.5rem;
+    margin: 0;
+}
+
+.mobile-side-menu nav ul li {
+    margin-bottom: 1rem;
+}
+
+.mobile-side-menu nav ul li a {
+    display: flex;
+    align-items: center;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.mobile-side-menu nav ul li a i {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    color: var(--primary-red);
+}
+
+.mobile-side-menu nav ul li a:hover {
+    background: var(--glass-bg-hover);
+    color: var(--primary-red);
+}
+
+/* Show mobile menu button only on mobile */
+@media screen and (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+}
+
+/* Overlay when menu is open */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.menu-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Mobile Menu Button Styles */
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    z-index: 1000;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.mobile-menu-btn span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: var(--text-color);
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+/* Show mobile menu button only on mobile */
+@media screen and (max-width: 768px) {
+    .mobile-menu-btn {
+        display: block;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+    
+    .mobile-menu-btn.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .mobile-menu-btn.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(7px, -6px);
+    }
+}
+
+/* Update header container for mobile */
+@media screen and (max-width: 768px) {
+    .header-container {
+        position: relative;
+        padding-right: 3rem; /* Add space for the menu button */
+    }
+}
