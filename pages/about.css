@@ -195,7 +195,6 @@ header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    animation: logoFadeIn 0.8s ease-out;
 }
 
 .logo a {
@@ -203,23 +202,23 @@ header {
     align-items: center;
     text-decoration: none;
     color: var(--text-color);
-    font-size: 1.2rem;
+    font-size: 1rem;
     font-weight: 600;
     transition: all 0.3s ease;
+    white-space: nowrap;
 }
 
-.logo a:hover {
-    color: var(--primary-red);
+.logo a span {
+    margin-left: 0.5rem;
+    color: #ffffff;
 }
 
 .nav-logo {
-    height: 40px;
-    width: 40px;
-    margin-right: 0.5rem;
+    height: 35px;
+    width: 35px;
     border-radius: 50%;
     border: 2px solid #ffffff;
     object-fit: cover;
-    animation: logoSpin 0.8s ease-out;
 }
 
 .india-tag {
@@ -227,9 +226,9 @@ header {
     color: #ffffff;
     padding: 0.2rem 0.5rem;
     border-radius: 4px;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    margin-left: 0.5rem;
+    white-space: nowrap;
 }
 
 @keyframes logoFadeIn {
@@ -655,12 +654,17 @@ footer {
     }
 
     .logo a {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .nav-logo {
         height: 30px;
         width: 30px;
+    }
+
+    .india-tag {
+        font-size: 0.7rem;
+        padding: 0.15rem 0.4rem;
     }
 
     .slide-content h2 {
