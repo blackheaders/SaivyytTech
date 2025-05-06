@@ -99,11 +99,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuLinks = document.querySelectorAll('.main-menu a');
     menuLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent default link behavior
-            
-            // Get the href attribute
             const href = link.getAttribute('href');
-            if (!href || !href.startsWith('#') || href.length <= 1) return;
+            
+            // If it's an external link (not an anchor), allow normal navigation
+            if (!href || !href.startsWith('#') || href.length <= 1) {
+                return; // Allow default navigation
+            }
+            
+            e.preventDefault(); // Only prevent default for anchor links
             
             // Get the target section
             const target = document.querySelector(href);
@@ -1040,4 +1043,57 @@ document.addEventListener('DOMContentLoaded', () => {
             document.body.style.overflow = '';
         }
     });
+
+    // Add navigation error handling
+    document.addEventListener('DOMContentLoaded', () => {
+        // Handle navigation links
+        const navLinks = document.querySelectorAll('a[href]');
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                const href = link.getAttribute('href');
+                
+                // Skip if it's a hash link or external link
+                if (href.startsWith('#') || href.startsWith('http')) {
+                    return;
+                }
+
+                // Prevent default behavior for local links
+                e.preventDefault();
+
+                // Try to navigate to the page
+                try {
+                    window.location.href = href;
+                } catch (error) {
+                    console.error('Navigation error:', error);
+                    // Fallback to traditional navigation
+                    window.location.assign(href);
+                }
+            });
+        });
+    });
+
+    // Add page transition handling
+    const handlePageTransition = (e) => {
+        const link = e.target.closest('a');
+        if (!link) return;
+        
+        // Don't handle anchor links or external links
+        if (link.getAttribute('href').startsWith('#') || link.getAttribute('href').startsWith('http')) {
+            return;
+        }
+        
+        e.preventDefault();
+        const href = link.getAttribute('href');
+        
+        // Add transition class
+        document.body.classList.add('page-transition');
+        
+        // Wait for transition to complete
+        setTimeout(() => {
+            window.location.href = href;
+        }, 300);
+    };
+
+    // Add click event listener to all links
+    document.addEventListener('click', handlePageTransition);
 }); 
