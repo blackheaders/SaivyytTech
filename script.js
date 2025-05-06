@@ -995,21 +995,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuOverlay = document.querySelector('.menu-overlay');
     const mobileMenuLinks = document.querySelectorAll('.mobile-side-menu nav ul li a');
 
-    // Toggle mobile menu
+    // Toggle mobile menu - Adding null check for menuOverlay
     mobileMenuBtn.addEventListener('click', () => {
         mobileMenuBtn.classList.toggle('active');
-        mobileSideMenu.classList.toggle('active');
-        menuOverlay.classList.toggle('active');
-        document.body.style.overflow = mobileSideMenu.classList.contains('active') ? 'hidden' : '';
+        if (mobileSideMenu) mobileSideMenu.classList.toggle('active');
+        if (menuOverlay) menuOverlay.classList.toggle('active');
+        document.body.style.overflow = mobileSideMenu && mobileSideMenu.classList.contains('active') ? 'hidden' : '';
     });
 
-    // Close menu when clicking overlay
-    menuOverlay.addEventListener('click', () => {
-        mobileMenuBtn.classList.remove('active');
-        mobileSideMenu.classList.remove('active');
-        menuOverlay.classList.remove('active');
-        document.body.style.overflow = '';
-    });
+    // Close menu when clicking overlay - Adding null check for menuOverlay
+    if (menuOverlay) {
+        menuOverlay.addEventListener('click', () => {
+            mobileMenuBtn.classList.remove('active');
+            if (mobileSideMenu) mobileSideMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+    }
 
     // Handle smooth scrolling for mobile menu links
     mobileMenuLinks.forEach(link => {
@@ -1096,4 +1098,130 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Add click event listener to all links
     document.addEventListener('click', handlePageTransition);
+
+    // Initialization for global map
+    function initializeGlobalMap() {
+        // Check if the map element exists
+        const mapElement = document.getElementById('global-map');
+        if (!mapElement) {
+            console.error('Map element not found');
+            return;
+        }
+
+        console.log('Initializing global map');
+
+        // Initialize the map centered on the world
+        const map = L.map('global-map', {
+            center: [20, 0],
+            zoom: 2,
+            minZoom: 2,
+            maxZoom: 6,
+            scrollWheelZoom: false,
+            zoomControl: true
+        });
+
+        // Add a dark-themed tile layer
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd'
+        }).addTo(map);
+
+        // Define key locations - no visible markers will be added
+        const locations = [
+            { name: "New York", coords: [40.7128, -74.0060] },
+            { name: "San Francisco", coords: [37.7749, -122.4194] },
+            { name: "London", coords: [51.5074, -0.1278] },
+            { name: "Berlin", coords: [52.5200, 13.4050] },
+            { name: "Mumbai", coords: [19.0760, 72.8777] },
+            { name: "Singapore", coords: [1.3521, 103.8198] },
+            { name: "Sydney", coords: [-33.8688, 151.2093] },
+            { name: "Tokyo", coords: [35.6762, 139.6503] },
+            { name: "São Paulo", coords: [-23.5505, -46.6333] },
+            { name: "Dubai", coords: [25.2048, 55.2708] }
+        ];
+
+        // Create connection lines between locations
+        const connections = [
+            [0, 1], [0, 2], [0, 4], [2, 3], [2, 9], 
+            [4, 5], [4, 9], [5, 6], [5, 7], [1, 8],
+            [0, 6], [0, 7], [3, 7], [5, 9], [0, 9],
+            [2, 5], [3, 4], [0, 8], [2, 8], [4, 7]
+        ];
+
+        // Define a function to create curved lines between points
+        function createCurvedLine(latLng1, latLng2) {
+            // Create a curved line by adding a midpoint with offset
+            const latlngs = [];
+            const offsetX = (latLng2[1] - latLng1[1]) / 2;
+            const offsetY = (latLng2[0] - latLng1[0]) / 2;
+            
+            // Start point
+            latlngs.push(latLng1);
+            
+            // Add a control point for the curve (if the points are far enough apart)
+            const distance = Math.sqrt(Math.pow(offsetX, 2) + Math.pow(offsetY, 2));
+            if (distance > 10) {
+                const midLat = (latLng1[0] + latLng2[0]) / 2;
+                const midLng = (latLng1[1] + latLng2[1]) / 2;
+                
+                // Calculate perpendicular offset for curve
+                const perpFactor = distance / 15; // Adjust this value to control curve amount
+                const perpX = -offsetY / distance * perpFactor;
+                const perpY = offsetX / distance * perpFactor;
+                
+                latlngs.push([midLat + perpY, midLng + perpX]);
+            }
+            
+            // End point
+            latlngs.push(latLng2);
+            
+            // Create polyline with curves
+            return L.polyline(latlngs, {
+                color: '#f05454',
+                weight: 2,
+                opacity: 0.8,
+                smoothFactor: 1,
+                className: 'connection-line'
+            });
+        }
+
+        // Add connection lines directly without visible markers
+        connections.forEach(connection => {
+            const loc1 = locations[connection[0]];
+            const loc2 = locations[connection[1]];
+            
+            if (loc1 && loc2) {
+                // Create a curved connection line between the two location coordinates
+                const line = createCurvedLine(
+                    loc1.coords,
+                    loc2.coords
+                ).addTo(map);
+                
+                // Add pulse animation to line
+                if (line.getElement()) {
+                    line.getElement().classList.add('pulse-line');
+                }
+            }
+        });
+
+        // Add animation for connection lines
+        setTimeout(() => {
+            const lines = document.querySelectorAll('.connection-line');
+            console.log(`Found ${lines.length} connection lines`);
+            lines.forEach((line, index) => {
+                setTimeout(() => {
+                    line.classList.add('animated');
+                }, index * 100);
+            });
+        }, 1000);
+        
+        console.log('Global map initialized');
+    }
+
+    // Make sure we initialize the map when the document is loaded
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeGlobalMap);
+    } else {
+        initializeGlobalMap();
+    }
 }); 

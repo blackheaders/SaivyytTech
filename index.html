@@ -18,6 +18,48 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    
+    <!-- Custom styles for map -->
+    <style>
+        .network-section {
+            position: relative;
+            z-index: 10;
+        }
+        
+        #global-map {
+            width: 100%;
+            height: 600px;
+            z-index: 5;
+        }
+        
+        .connection-line {
+            stroke-dasharray: 6;
+            animation: dash 20s linear infinite;
+            stroke-width: 2 !important;
+        }
+        
+        .pulse-line {
+            animation: pulse-opacity 2s ease-in-out infinite;
+        }
+        
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 1000;
+            }
+        }
+        
+        @keyframes pulse-opacity {
+            0% {
+                opacity: 0.3;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0.3;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="popup-animation">
@@ -149,61 +191,28 @@
                 <p>Providing AI solutions worldwide</p>
             </div>
             <div class="network-container">
-                <div class="network-info scroll-animate" data-animation="fadeInLeft">
-                    <div class="region-selector">
-                        <div class="region-item active" data-region="north-america">
-                            <i class="fas fa-globe-americas"></i>
-                            <div class="region-details">
-                                <h3>North America</h3>
-                                <p>USA, Canada</p>
-                                <ul class="facility-list">
-                                    <li><i class="fas fa-server"></i> Data Centers</li>
-                                    <li><i class="fas fa-users"></i> Client Support Teams</li>
-                                    <li><i class="fas fa-building"></i> Development Hubs</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="region-item" data-region="asia">
-                            <i class="fas fa-globe-asia"></i>
-                            <div class="region-details">
-                                <h3>Asia Pacific</h3>
-                                <p>India, Singapore, Australia</p>
-                                <ul class="facility-list">
-                                   <li><i class="fas fa-server"></i> Data Centers</li>
-                                   <li><i class="fas fa-users"></i> Client Support Teams</li>
-                                   <li><i class="fas fa-building"></i> Development Hubs</li>
-                                </ul>
-                            </div>
-                        </div>
-                         <div class="region-item" data-region="europe">
-                            <i class="fas fa-globe-europe"></i>
-                            <div class="region-details">
-                                <h3>Europe</h3>
-                                <p>UK, Germany, France</p>
-                                <ul class="facility-list">
-                                   <li><i class="fas fa-server"></i> Data Centers</li>
-                                   <li><i class="fas fa-users"></i> Client Support Teams</li>
-                                   <li><i class="fas fa-building"></i> Development Hubs</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                <div class="map-container scroll-animate" data-animation="fadeIn">
+                    <div id="global-map"></div>
                 </div>
-                <div class="map-container scroll-animate" data-animation="fadeInRight">
-                    <div class="india-map-wrapper"> <!-- Consider replacing ID/class if map changes -->
-                        <div id="world-map"></div> <!-- Changed ID, will need JS update -->
-                        <div class="map-overlay">
-                            <div class="legend">
-                                <div class="legend-item">
-                                    <span class="dot warehouse"></span> Data Center
-                                </div>
-                                <div class="legend-item">
-                                    <span class="dot distribution"></span> Development Hub
-                                </div>
-                                <div class="legend-item">
-                                    <span class="dot office"></span> Support Center
-                                </div>
-                            </div>
+                <div class="global-presence scroll-animate" data-animation="fadeInUp">
+                    <h3>Serving Clients Across Continents</h3>
+                    <p>Our AI solutions empower businesses in more than 35 countries, with dedicated support and infrastructure on all major continents.</p>
+                    <div class="presence-highlights">
+                        <div class="presence-item">
+                            <i class="fas fa-server"></i>
+                            <span>Strategic Data Centers</span>
+                        </div>
+                        <div class="presence-item">
+                            <i class="fas fa-code-branch"></i>
+                            <span>Global Development Network</span>
+                        </div>
+                        <div class="presence-item">
+                            <i class="fas fa-headset"></i>
+                            <span>24/7 Support Coverage</span>
+                        </div>
+                        <div class="presence-item">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Regional Compliance Expertise</span>
                         </div>
                     </div>
                 </div>
